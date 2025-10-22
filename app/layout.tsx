@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import localFont from 'next/font/local';
 import { Bebas_Neue, Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
+import GradualBlur from "@/components/animations/GradualBlur";
+
 
 const clashDisplay = localFont({
   src: '../public/fonts/ClashDisplay-Medium.woff2',
@@ -53,6 +55,9 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <div className="hidden md:block">
+          <GradualBlur preset="page-footer" />
+        </div>
       </body>
     </html>
   );

@@ -66,7 +66,7 @@ const BlurText: FC<BlurTextProps> = ({
 
   const elements = animateBy === 'words' ? textToAnimate.split(' ') : textToAnimate.split('');
   const ref = useRef<HTMLParagraphElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const isInView = useInView(ref, { once: false, amount: 0.5 });
 
   const defaultFrom = useMemo(
     () =>
