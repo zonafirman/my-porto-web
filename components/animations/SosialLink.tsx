@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 
 export default function SocialLinks() {
   const links = [
-    { name: "LINKEDIN", href: "https://linkedin.com" },
-    { name: "GITHUB", href: "https://github.com" },
-    { name: "INSTAGRAM", href: "https://instagram.com" },
-    { name: "GMAIL", href: "mailto:yourname@gmail.com" },
+    // { name: "LINKEDIN", href: "https://linkedin.com" },
+    // { name: "GITHUB", href: "https://github.com" },
+    { name: "INSTAGRAM", href: "https://instagram.com/yyon4a" },
+    { name: "GMAIL", href: "mailto:jonafirmanmaulana01@gmail.com" },
   ];
 
   const ref = useRef(null);

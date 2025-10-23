@@ -9,15 +9,28 @@ import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const clashDisplay = localFont({
-  src: '../public/fonts/ClashDisplay-Light.woff2',
+  src: '../public/fonts/ClashDisplay-Medium.woff2',
   display: 'swap',
-  weight: '300',
+  weight: '500',
   variable: '--font-clash-display',
 });
 
 gsap.registerPlugin(SplitText, ScrambleTextPlugin, ScrollTrigger);
 
+// Hook untuk mendeteksi perangkat mobile
+const useIsMobile = (breakpoint = 768) => {
+  const [isMobile, setIsMobile] = React.useState(false);
+  useEffect(() => {
+    const checkDevice = () => setIsMobile(window.innerWidth <= breakpoint);
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, [breakpoint]);
+  return isMobile;
+};
+
 const AboutSection = () => {
+  const isMobile = useIsMobile();
   const aboutText =
     'With over five years of dedicated experience, I specialize in crafting high-performance, visually stunning web applications. My expertise lies in transforming complex challenges into elegant, user-centric digital solutions, driving innovation and delivering exceptional results.';
 
@@ -26,7 +39,7 @@ const AboutSection = () => {
   const isDarkModeRef = useRef(false);
 
   const handleMove = useCallback((e: PointerEvent) => {
-    if (!splitRef.current) return;
+    if (!splitRef.current || isMobile) return; // Nonaktifkan di mobile
 
     const radius = 100;
     const duration = 1.2;
@@ -59,7 +72,7 @@ const AboutSection = () => {
         });
       }
     });
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const checkDarkMode = () => {
@@ -112,7 +125,9 @@ const AboutSection = () => {
       updateColors();
 
       const el = rootRef.current;
-      el.addEventListener('pointermove', handleMove);
+      if (!isMobile) {
+        el.addEventListener('pointermove', handleMove);
+      }
 
       // Observe theme changes
       const observer = new MutationObserver((mutations) => {
@@ -125,7 +140,9 @@ const AboutSection = () => {
       observer.observe(document.documentElement, { attributes: true });
 
       return () => {
-        el.removeEventListener('pointermove', handleMove);
+        if (!isMobile) {
+          el.removeEventListener('pointermove', handleMove);
+        }
         observer.disconnect();
         splitRef.current?.revert();
         ScrollTrigger.getAll().forEach(t => t.kill());
@@ -133,7 +150,7 @@ const AboutSection = () => {
     }, rootRef);
 
     return () => ctx.revert();
-  }, [handleMove]);
+  }, [handleMove, isMobile]);
 
   return (
     <section className="py-12 sm:py-16 lg:py-20">

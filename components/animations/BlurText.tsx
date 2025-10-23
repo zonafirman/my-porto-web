@@ -3,8 +3,8 @@
 import { motion, Transition, Easing, useInView } from 'framer-motion';
 import { useRef, useMemo, FC, ElementType, ReactNode, Children } from 'react';
 
-type BlurTextProps = {
-  as?: ElementType;
+type BlurTextOwnProps<T extends ElementType = 'p'> = {
+  as?: T;
   children?: ReactNode;
   text?: string;
   delay?: number;
@@ -20,6 +20,8 @@ type BlurTextProps = {
   stepDuration?: number;
 };
 
+type BlurTextProps<T extends ElementType = 'p'> = BlurTextOwnProps<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof BlurTextOwnProps<T>>;
+
 const buildKeyframes = (
   from: Record<string, string | number>,
   steps: Array<Record<string, string | number>>
@@ -33,7 +35,7 @@ const buildKeyframes = (
   return keyframes;
 };
 
-const BlurText: FC<BlurTextProps> = ({
+const BlurText = <T extends ElementType = 'p'>({
   as: Component = 'p',
   children,
   text = '',
@@ -47,8 +49,9 @@ const BlurText: FC<BlurTextProps> = ({
   animationTo,
   easing = 'easeOut',
   onAnimationComplete,
-  stepDuration = 0.35
-}) => {
+  stepDuration = 0.35,
+  ...rest
+}: BlurTextProps<T>) => {
   const textToAnimate = useMemo(() => {
     if (children) {
       return Children.toArray(children).reduce((acc: string, child) => {
@@ -122,7 +125,7 @@ const BlurText: FC<BlurTextProps> = ({
   };
 
   return (
-    <Component ref={ref} className={`blur-text ${className}`}>
+    <Component ref={ref} className={`blur-text ${className}`} {...rest}>
       <motion.span initial={fromSnapshot} animate={isInView ? buildKeyframes(fromSnapshot, toSnapshots) : fromSnapshot} transition={spanTransition} onAnimationComplete={onAnimationComplete} className="inline-block">
         {renderContent()}
       </motion.span>

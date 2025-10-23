@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Link from 'next/link';
 import localFont from 'next/font/local';
 import { motion, useInView } from 'framer-motion';
 import SocialLinks from '@/components/animations/SosialLink';
@@ -23,18 +24,22 @@ const HeroSection = () => {
   };
 
   return (
-    <section className=" min-h-screen flex flex-col justify-center">
+    <section
+      aria-labelledby="hero-heading"
+      className=" min-h-screen flex flex-col justify-center"
+    >
       <div className="container mx-auto px-6 lg:px-8 py-24">
         
         {/* Baris Atas: Sapaan */}
         <div className="flex items-center gap-2 text-lg text-black dark:text-white mb-4">
-          <WavingHand />
+          <WavingHand aria-hidden="true" />
           <span>Hey! It's me Zona,</span>
         </div>
 
         {/* Judul Utama */}
         <BlurText
           as="h1"
+          id="hero-heading"
           className={`${clashDisplay.className} text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black dark:text-white tracking-tighter leading-none`}
           animateBy="words"
         >
@@ -76,20 +81,22 @@ const HeroSection = () => {
             <div className="hidden md:flex">
               <SocialLinks />
             </div>
-            <motion.button
-              variants={{
-                initial: { opacity: 0, y: 20 },
-                animate: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
-              }}
-              initial="initial"
-              animate={isInView ? 'animate' : 'initial'}
-              className="group relative px-6 py-2 border border-black dark:border-white rounded-full text-black dark:text-white font-medium hover:text-white dark:hover:text-black transition-colors duration-500 overflow-hidden"
-            >
-              {/* Latar belakang yang mengisi */}
-              <span className="absolute inset-0 bg-black dark:bg-white top-full group-hover:top-0 transition-all duration-500 ease-in-out z-0"></span>
-              <span className="relative z-10 block transition-transform duration-300 group-hover:-translate-y-full py-1">Know me better</span>
-              <span className="absolute inset-0 z-10 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">About me</span>
-            </motion.button>
+            <Link href="/about" passHref>
+              <motion.div
+                variants={{
+                  initial: { opacity: 0, y: 20 },
+                  animate: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
+                }}
+                initial="initial"
+                animate={isInView ? 'animate' : 'initial'}
+                className="group relative px-6 py-2 border border-black dark:border-white rounded-full text-black dark:text-white font-medium hover:text-white dark:hover:text-black transition-colors duration-500 overflow-hidden inline-block"
+              >
+                {/* Latar belakang yang mengisi */}
+                <span className="absolute inset-0 bg-black dark:bg-white top-full group-hover:top-0 transition-all duration-500 ease-in-out z-0"></span>
+                <span className="relative z-10 block transition-transform duration-300 group-hover:-translate-y-full py-1">Know me better</span>
+                <span className="absolute inset-0 z-10 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">About me</span>
+              </motion.div>
+            </Link>
           </div>
         </div>
 
