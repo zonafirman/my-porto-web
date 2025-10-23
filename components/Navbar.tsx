@@ -1,7 +1,8 @@
 'use client'
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { usePathname } from 'next/navigation';
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -39,6 +40,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const textRef = useRef<HTMLSpanElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActiveIndex(initialActiveIndex);
+  }, [initialActiveIndex]);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
   const getXY = (distance: number, pointIndex: number, totalPoints: number): [number, number] => {
@@ -195,7 +200,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
   }, [activeIndex]);
-
+  
   return (
     <>
       {/* This effect is quite difficult to recreate faithfully using Tailwind, so a style tag is a necessary workaround */}
@@ -418,6 +423,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 export default function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
 
   useEffect(() => {
@@ -456,16 +462,21 @@ export default function Navbar() {
   };
 
   const navItems: GooeyNavItem[] = [
-    { label: 'Home', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'Projects', href: '#' },
-    { label: 'Contact', href: '#' },
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Contact', href: '/contacts' },
   ];
+
+  const initialActiveIndex = useMemo(() => {
+    const activeIndex = navItems.findIndex(item => item.href === pathname);
+    return activeIndex === -1 ? 0 : activeIndex;
+  }, [pathname]);
+
   return (
     <header
-      className={`sticky top-0 z-50 hidden w-full justify-center transition-all duration-500 ease-in-out md:flex ${
-        isScrolled ? "top-2" : "top-0"
-      }`}
+      className={`sticky top-0 z-50 hidden w-full justify-center transition-all duration-500 ease-in-out md:flex ${isScrolled ? "top-2" : "top-0"
+        }`}
     >
       <div
         className={`relative flex h-14 w-full items-center justify-between rounded-full border border-transparent bg-transparent transition-all duration-500 ease-in-out md:px-6 ${
@@ -488,7 +499,7 @@ export default function Navbar() {
 
         {/* Menu Navigasi di Tengah */}
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
-          <GooeyNav items={navItems} isDarkMode={isDarkMode} />
+          <GooeyNav items={navItems} isDarkMode={isDarkMode} initialActiveIndex={initialActiveIndex} />
         </div>
 
         {/* Toggle Dark/Light Mode di Kanan */}

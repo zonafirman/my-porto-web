@@ -3,28 +3,30 @@
 import { LayoutGrid, UserRound, FolderKanban, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Dock, { type DockItemData } from '@/components/animations/Dock';
+import { useRouter } from 'next/navigation';
 
 export function MobileNav() {
+  const router = useRouter();
   // Anda bisa mengganti onClick ini untuk navigasi menggunakan Next.js router
   // atau untuk scroll ke section tertentu.
   const items: DockItemData[] = [
     {
-      onClick: () => console.log('Home clicked'),
+      onClick: () => router.push('/'),
       icon: <LayoutGrid size={24} />,
       label: 'Home'
     },
     {
-      onClick: () => console.log('About clicked'),
+      onClick: () => router.push('/about'),
       icon: <UserRound size={24} />,
       label: 'About'
     },
     {
-      onClick: () => console.log('Projects clicked'),
+      onClick: () => console.log('/projects'),
       icon: <FolderKanban size={24} />,
       label: 'Projects'
     },
     {
-      onClick: () => console.log('Contact clicked'),
+      onClick: () => console.log('/contacts'),
       icon: <Mail size={24} />, // Mail icon is already good
       label: 'Contact'
     }
