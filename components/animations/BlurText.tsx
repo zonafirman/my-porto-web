@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, Transition, Easing, useInView } from 'framer-motion';
-import { useRef, useMemo, FC, ElementType, ReactNode, Children } from 'react';
+import { useRef, useMemo, ElementType, ReactNode, Children, isValidElement } from 'react';
 
 type BlurTextOwnProps<T extends ElementType = 'p'> = {
   as?: T;
@@ -60,7 +60,7 @@ const BlurText = <T extends ElementType = 'p'>({
         if (typeof child === 'string') {
           return acc + child;
         }
-        if (typeof child === 'object' && child !== null && 'props' in child && child.props.children) {
+        if (isValidElement(child) && 'children' in child.props) {
           return acc + (child.props.children || '');
         }
         return acc;
