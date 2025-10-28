@@ -141,8 +141,8 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
     const rect = c.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateX = (y / rect.height - 0.5) * -15;
-    const rotateY = (x / rect.width - 0.5) * 15;
+    const rotateX = (y / rect.height - 0.5) * -15; // Mengubah let menjadi const
+    const rotateY = (x / rect.width - 0.5) * 15; // Mengubah let menjadi const
 
     c.style.setProperty('--rx', `${rotateX}deg`);
     c.style.setProperty('--ry', `${rotateY}deg`);

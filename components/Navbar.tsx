@@ -51,7 +51,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     return [distance * Math.cos(angle), distance * Math.sin(angle)];
   };
   const createParticle = (i: number, t: number, d: [number, number], r: number) => {
-    let rotate = noise(r / 10);
+    const rotate = noise(r / 10);
     return {
       start: getXY(d[0], particleCount - i, particleCount),
       end: getXY(d[1] + noise(7), particleCount - i, particleCount),
@@ -427,10 +427,10 @@ export default function Navbar() {
 
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initialIsDark = savedTheme ? savedTheme === 'dark' : prefersDark;
-    setIsDarkMode(initialIsDark);
+    setIsDarkMode(initialIsDark); // Set initial theme
   }, []);
 
   useEffect(() => {

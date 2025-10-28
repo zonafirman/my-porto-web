@@ -79,7 +79,7 @@ const Testimonials = () => {
               What others say about me
             </ScrollFloat>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-400">
-              I've worked with some amazing people over the years, here is what they have to say about me.
+              I&apos;ve worked with some amazing people over the years, here is what they have to say about me.
             </p>
           </div>
 
