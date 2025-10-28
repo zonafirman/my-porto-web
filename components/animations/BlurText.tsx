@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, Transition, Easing, useInView } from 'framer-motion';
-import { useRef, useMemo, ElementType, ReactNode, Children, isValidElement } from 'react';
+import { useRef, useMemo, ElementType, ReactNode, Children, isValidElement, ReactElement } from 'react';
 
 type BlurTextOwnProps<T extends ElementType = 'p'> = {
   as?: T;
@@ -35,6 +35,22 @@ const buildKeyframes = (
   return keyframes;
 };
 
+// Helper function to recursively extract text from React nodes
+const extractTextFromChildren = (children: ReactNode): string => {
+  return Children.toArray(children)
+    .map(child => {
+      if (typeof child === 'string' || typeof child === 'number') {
+        return child;
+      }
+      // Cast to ReactElement with children prop after validation
+      if (isValidElement(child) && (child as ReactElement<{ children?: ReactNode }>).props.children) {
+        return extractTextFromChildren((child as ReactElement<{ children: ReactNode }>).props.children);
+      }
+      return '';
+    })
+    .join('');
+};
+
 const BlurText = <T extends ElementType = 'p'>({
   as,
   children,
@@ -56,15 +72,7 @@ const BlurText = <T extends ElementType = 'p'>({
 
   const textToAnimate = useMemo(() => {
     if (children) {
-      return Children.toArray(children).reduce((acc: string, child) => {
-        if (typeof child === 'string') {
-          return acc + child;
-        }
-        if (isValidElement(child) && 'children' in child.props) {
-          return acc + (child.props.children || '');
-        }
-        return acc;
-      }, '');
+      return extractTextFromChildren(children);
     }
     return text;
   }, [children, text]);
