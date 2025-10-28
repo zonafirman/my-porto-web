@@ -42,7 +42,7 @@ export default function HeroSectionAbout() {
           {/* Kolom Gambar */}
           <div className="relative w-full max-w-xs mx-auto h-[80vh] self-start">
             <Image
-              src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=876&q=80" 
+              src="/Profil.jpg"
               alt="Potret A creative developer & digital designer"
               fill
               priority
