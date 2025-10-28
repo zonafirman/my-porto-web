@@ -36,7 +36,7 @@ const buildKeyframes = (
 };
 
 const BlurText = <T extends ElementType = 'p'>({
-  as: Component = 'p',
+  as,
   children,
   text = '',
   delay = 200,
@@ -52,6 +52,8 @@ const BlurText = <T extends ElementType = 'p'>({
   stepDuration = 0.35,
   ...rest
 }: BlurTextProps<T>) => {
+  const Component = as || 'p';
+
   const textToAnimate = useMemo(() => {
     if (children) {
       return Children.toArray(children).reduce((acc: string, child) => {
