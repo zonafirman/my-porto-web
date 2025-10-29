@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 // Impor ikon dari lucide-react
 import localFont from 'next/font/local';
 import {
@@ -19,6 +19,41 @@ const clashDisplay = localFont({
 
 // Komponen Halaman Utama
 export default function ContactPage() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState(''); // '', 'submitting', 'success', 'error'
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('submitting');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' }); // Reset form
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus('error');
+    }
+  };
+
   return (
     <main className="py-16 sm:py-24 px-8">
       <div className="max-w-7xl mx-auto">
@@ -44,7 +79,7 @@ export default function ContactPage() {
             </h2>
 
             {/* Formulir */}
-            <form action="#" method="POST" className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Full Name */}
               <div>
                 <label htmlFor="full-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -52,9 +87,12 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="text"
-                  name="full-name"
+                  name="name"
                   id="full-name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="block w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161515] p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
+                  required
                 />
               </div>
 
@@ -67,7 +105,10 @@ export default function ContactPage() {
                   type="email"
                   name="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="block w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161515] p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
+                  required
                 />
               </div>
 
@@ -80,7 +121,10 @@ export default function ContactPage() {
                   name="message"
                   id="message"
                   rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
                   className="block w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161515] p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
+                  required
                 />
               </div>
 
@@ -88,14 +132,21 @@ export default function ContactPage() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="group relative px-6 py-2 border border-black dark:border-white rounded-full text-black dark:text-white font-semibold hover:text-white dark:hover:text-black transition-colors duration-500 overflow-hidden"
+                  disabled={status === 'submitting'}
+                  className="group relative px-6 py-2 border border-black dark:border-white rounded-full text-black dark:text-white font-semibold hover:text-white dark:hover:text-black transition-colors duration-500 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="absolute inset-0 bg-black dark:bg-white top-full group-hover:top-0 transition-all duration-500 ease-in-out z-0"></span>
                   <span className="relative z-10">
-                    Send Message
+                    {status === 'submitting' ? 'Sending...' : 'Send Message'}
                   </span>
                 </button>
               </div>
+              {status === 'success' && (
+                <p className="text-green-600 dark:text-green-400 text-sm mt-2">Message sent successfully!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-red-600 dark:text-red-400 text-sm mt-2">An error occurred. Please try again.</p>
+              )}
             </form>
           </div>
 
