@@ -33,8 +33,7 @@ const items: Item[] = [
     icon: <Megaphone className="w-5 h-5" />,
     content:
       'Creating strong visual identities that reflect the essence of your brand and connect with your audience.',
-    imageUrl: 
-      'https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=871&auto=format&fit=crop',
+    imageUrl: '/Profil.jpg',
   },
 ];
 

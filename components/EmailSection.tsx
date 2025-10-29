@@ -188,7 +188,7 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5" />
                 </a>
                 <a href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                  <Twitter className="h-5 w-5" />
+                  <Twitter className="h-5 w-5" /> 
                 </a>
               </div>
             </div>

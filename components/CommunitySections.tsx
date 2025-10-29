@@ -58,7 +58,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ to, suffix = '', clas
  */
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-sm">
+    <div className=" p-6 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-sm">
       {/* Lingkaran Ikon */}
       <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-purple-900/20 flex items-center justify-center mb-4">
         {React.cloneElement(icon, { className: "h-6 w-6 text-blue-600 dark:text-purple-400" })}

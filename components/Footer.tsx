@@ -1,14 +1,15 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { motion, useInView, useAnimation, Variants } from 'framer-motion';
-import { Linkedin, Github, Instagram, Dribbble } from 'lucide-react';
+import { Linkedin, Github, Instagram, Dribbble, Mail } from 'lucide-react';
 import ScrollFloat from '@/components/animations/ScrollFloat';
 
 const socialLinks = [
   { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/zonafirman' },
   { name: 'Dribbble', icon: Dribbble, href: 'https://dribbble.com/zonafirman' },
   { name: 'GitHub', icon: Github, href: 'https://github.com/zonafirman' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/zonafirman' }
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/zonafirman' },
+  { name: 'Email', icon: Mail, href: 'mailto:zonafirman2@gmail.com' }
 ];
 
 const Footer = () => {
