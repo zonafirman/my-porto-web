@@ -5,6 +5,7 @@ import { Bebas_Neue, Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import GradualBlur from "@/components/animations/GradualBlur";
 import { MobileNav } from "@/components/MobileNav";
+import { Analytics } from "@vercel/analytics/next";
 
 
 const clashDisplay = localFont({
@@ -57,6 +58,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <MobileNav />
+        <Analytics />
         <div className="hidden md:block">
           <GradualBlur preset="page-footer" />
         </div>
