@@ -2,9 +2,10 @@
 "use client"; 
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import localFont from 'next/font/local';
 // Impor ikon dari lucide-react
-import { Sparkles, ChevronDown } from 'lucide-react';
+import { Sparkles, ChevronDown, Search } from 'lucide-react';
 
 const clashDisplay = localFont({
   src: '../public/fonts/ClashDisplay-Medium.woff2',
@@ -52,29 +53,44 @@ interface FaqItemProps {
 // Komponen untuk satu item FAQ (Accordion)
 const FaqItem: React.FC<FaqItemProps> = ({ question, answer, isOpen, onClick }) => {
   return (
-    <div className="bg-white dark:bg-[#161515] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+    <div className="bg-white dark:bg-[#161515] rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
       {/* Tombol Pertanyaan (Trigger) */}
-      <button
+      <motion.header
+        initial={false}
         onClick={onClick}
-        className="flex justify-between items-center w-full p-6 text-left"
+        className="flex justify-between items-center w-full p-6 text-left cursor-pointer"
         aria-expanded={isOpen}
       >
-        <span className="text-lg font-medium text-gray-900 dark:text-gray-100">{question}</span>
-        <ChevronDown 
-          className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300 ease-in-out ${isOpen ? 'rotate-180' : ''}`} 
-        />
-      </button>
+        <span className="text-lg font-medium text-gray-900 dark:text-gray-100 pr-4">{question}</span>
+        <motion.div
+          initial={false}
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <ChevronDown className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+        </motion.div>
+      </motion.header>
 
-      {/* Konten Jawaban (Bisa di-slide) */}
-      <div
-        className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
-      >
-        <div className="overflow-hidden">
-          <p className="p-6 pt-0 text-gray-600 dark:text-gray-400 leading-relaxed">
-            {answer}
-          </p>
-        </div>
-      </div>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.section
+            key="content"
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: 'auto' },
+              collapsed: { opacity: 0, height: 0 },
+            }}
+            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+            className="overflow-hidden"
+          >
+            <p className="px-6 pb-6 text-gray-600 dark:text-gray-400 leading-relaxed">
+              {answer}
+            </p>
+          </motion.section>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -82,6 +98,12 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer, isOpen, onClick }) 
 // Komponen Halaman Utama
 export default function FAQSection() {
   const [openId, setOpenId] = useState<number | null>(faqData[0]?.id ?? null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredFaqData = faqData.filter(item =>
+    item.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.answer.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <section className=" py-24 sm:py-32">
@@ -101,18 +123,39 @@ export default function FAQSection() {
               <br />
               Questions?
             </h2>
+
+            {/* Kolom Pencarian */}
+            <div className="relative mt-8">
+              <input
+                type="text"
+                placeholder="Search questions..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#161515] text-black dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:outline-none transition-all"
+              />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            </div>
           </div>
           {/* === KOLOM KANAN: Daftar Accordion === */}
           <div className="space-y-4">
-            {faqData.map((item) => (
-              <FaqItem 
-                key={item.id} 
-                question={item.question} 
-                answer={item.answer} 
-                isOpen={openId === item.id}
-                onClick={() => setOpenId(openId === item.id ? null : item.id)}
-              />
-            ))}
+            {filteredFaqData.length > 0 ? (
+              filteredFaqData.map((item) => (
+                <FaqItem 
+                  key={item.id} 
+                  question={item.question} 
+                  answer={item.answer} 
+                  isOpen={openId === item.id}
+                  onClick={() => setOpenId(openId === item.id ? null : item.id)}
+                />
+              ))
+            ) : (
+              <div className="text-center py-10 px-6 bg-white dark:bg-[#161515] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No questions found</h3>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Try a different search term or check back later.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

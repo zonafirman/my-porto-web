@@ -1,10 +1,11 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Code2, Palette, Megaphone, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import ScrollFloat from '@/components/animations/ScrollFloat';
 
 interface Item {
+  id: number;
   title: string
   icon: React.ReactElement
   content: string
@@ -12,23 +13,26 @@ interface Item {
 }
 
 const items: Item[] = [
-  { 
+  {
+    id: 1,
     title: 'Development',
     icon: <Code2 className="w-5 h-5" />,
     content:
       'Building responsive websites. Providing the users an enriching experience that responds to any device and screen size.',
     imageUrl:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=870&auto=format&fit=crop', 
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=870&auto=format&fit=crop',
   },
   {
+    id: 2,
     title: 'UI/UX Design',
     icon: <Palette className="w-5 h-5" />,
     content:
       'Designing intuitive and beautiful user interfaces that provide seamless and enjoyable user experiences.',
-    imageUrl: 
+    imageUrl:
       'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=870&auto=format&fit=crop',
   },
   {
+    id: 3,
     title: 'Branding',
     icon: <Megaphone className="w-5 h-5" />,
     content:
@@ -37,104 +41,175 @@ const items: Item[] = [
   },
 ];
 
+const SLIDE_DURATION = 8000; // 8 detik untuk setiap slide
+
 export default function ExpertiseAccordion() {
   const [active, setActive] = useState<number | null>(0)
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  // Fungsi untuk mereset dan memulai timer auto-slide
+  const resetTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = setTimeout(() => {
+      setActive((prevIndex) => {
+        if (prevIndex === null) return 0;
+        return (prevIndex + 1) % items.length;
+      });
+    }, SLIDE_DURATION);
+  };
+
+  // Efek untuk mengelola timer setiap kali 'active' berubah
+  useEffect(() => {
+    if (active !== null) {
+      resetTimer();
+    }
+    // Cleanup timer saat komponen unmount
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [active]);
 
   const toggle = (index: number) => {
-    setActive(active === index ? null : index)
+    // Jika item yang sama diklik, jangan tutup (null), tapi biarkan terbuka.
+    // Jika ingin bisa ditutup, ganti dengan: setActive(active === index ? null : index)
+    setActive(index);
+    resetTimer(); // Reset timer setiap kali pengguna berinteraksi
   }
 
   return (
-    <section className="py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative w-full h-80 md:h-[550px] rounded-2xl overflow-hidden shadow-lg">
-            <Image
-              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=870&auto=format&fit=crop"
-              alt="Expertise Areas"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover transition-opacity duration-500 ease-in-out ${
-                active === null ? 'opacity-100' : 'opacity-0'
-              }`}
-              priority={active === null}
-            />
-            {items.map((item, index) => (
+    <>
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Kolom Gambar dengan Efek Ken Burns */}
+            <div className="relative w-full h-80 md:h-[550px] rounded-2xl overflow-hidden shadow-lg">
               <Image
-                key={index}
-                src={item.imageUrl}
-                alt={item.title}
+                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=870&auto=format&fit=crop"
+                alt="Expertise Areas"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                priority={index === 0}
                 className={`object-cover transition-opacity duration-500 ease-in-out ${
-                  active === index ? 'opacity-100' : 'opacity-0'
+                  active === null ? 'opacity-100 animate-kenburns' : 'opacity-0'
                 }`}
+                priority={active === null}
               />
-            ))}
-          </div>
-          <div>
-            <p className="text-purple-600 dark:text-purple-400 font-medium uppercase tracking-widest mb-2">
-              Speciality
-            </p>
-            <ScrollFloat
-              containerClassName="mb-8"
-              textClassName="text-4xl font-bold text-gray-900 dark:text-white"
-            >
-              Areas of Expertise
-            </ScrollFloat>
-
-            <div className="space-y-3">
               {items.map((item, index) => (
-                <div
+                <Image
                   key={index}
-                  className={`rounded-2xl transition-all duration-300 overflow-hidden border ${
-                    active === index
-                      ? 'bg-black/10 dark:bg-[#161515] border-black/20 dark:border-transparent shadow-lg'
-                      : 'bg-black/5 dark:bg-[#161515] border-black/10 dark:border-transparent shadow-sm'
+                  src={item.imageUrl}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority={index === 0}
+                  className={`object-cover transition-opacity duration-500 ease-in-out ${
+                    active === index ? 'opacity-100 animate-kenburns' : 'opacity-0'
                   }`}
-                >
-                  <button
-                    onClick={() => toggle(index)}
-                    className="flex items-center justify-between w-full p-5 text-left"
-                    aria-expanded={active === index}
-                    aria-controls={`accordion-content-${index}`}
-                  >
-                    <div className="flex items-center gap-3 text-gray-900 dark:text-[#E0E0E0]">
-                      <span className="text-purple-600 dark:text-inherit">
-                        {item.icon}
-                      </span>
-                      <span className="font-semibold text-lg">
-                        {item.title}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={`w-5 h-5 text-gray-600 dark:text-[#E0E0E0] transform transition-transform duration-300 ease-out ${
-                        active === index ? 'rotate-180' : 'rotate-0'
-                      }`}
-                    />
-                  </button>
+                />
+              ))}
+            </div>
+            <div>
+              <p className="text-purple-600 dark:text-purple-400 font-medium uppercase tracking-widest mb-2">
+                Speciality
+              </p>
+              <ScrollFloat
+                containerClassName="mb-8"
+                textClassName="text-4xl font-bold text-gray-900 dark:text-white"
+              >
+                Areas of Expertise
+              </ScrollFloat>
 
+              <div className="space-y-3">
+                {items.map((item, index) => (
                   <div
-                    id={`accordion-content-${index}`}
-                    className={`grid transition-all duration-500 ease-out ${
+                    key={item.id}
+                    className={`rounded-2xl transition-all duration-300 overflow-hidden border ${
                       active === index
-                        ? 'grid-rows-[1fr] opacity-100'
-                        : 'grid-rows-[0fr] opacity-0'
+                        ? 'bg-white dark:bg-[#161515] border-gray-200 dark:border-gray-700 shadow-lg'
+                        : 'bg-gray-50 dark:bg-black/20 border-transparent dark:border-transparent hover:bg-gray-100 dark:hover:bg-black/30'
                     }`}
                   >
-                    <div className="overflow-hidden px-5 pb-5">
-                      <p className="text-gray-700 dark:text-[#E0E0E0]">
-                        {item.content}
-                      </p>
+                    <button
+                      onClick={() => toggle(index)}
+                      className="flex items-center justify-between w-full p-5 text-left"
+                      aria-expanded={active === index}
+                      aria-controls={`accordion-content-${index}`}
+                    >
+                      <div className="flex items-center gap-3 text-gray-900 dark:text-gray-100">
+                        <span className={`transition-colors ${active === index ? 'text-purple-600 dark:text-purple-400' : 'text-gray-500'}`}>
+                          {item.icon}
+                        </span>
+                        <span className="font-semibold text-lg">
+                          {item.title}
+                        </span>
+                      </div>
+                      <ChevronDown
+                        className={`w-5 h-5 text-gray-500 dark:text-gray-400 transform transition-transform duration-300 ease-out ${
+                          active === index ? 'rotate-180' : 'rotate-0'
+                        }`}
+                      />
+                    </button>
+
+                    <div
+                      id={`accordion-content-${index}`}
+                      className={`grid transition-all duration-500 ease-out ${
+                        active === index
+                          ? 'grid-rows-[1fr] opacity-100'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden px-5 pb-5">
+                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                          {item.content}
+                        </p>
+                        {/* Bilah Progres */}
+                        <div className="relative h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-4 overflow-hidden">
+                          {active === index && (
+                            <div
+                              key={active} // Ganti key untuk mereset animasi
+                              className="absolute top-0 left-0 h-full bg-purple-500 animate-progress-bar"
+                              style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+                            />
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      {/* Menambahkan CSS untuk animasi baru */}
+      <style jsx global>{`
+        @keyframes kenburns {
+          0% {
+            transform: scale(1) translate(0, 0);
+          }
+          100% {
+            transform: scale(1.1) translate(-2%, 2%);
+          }
+        }
+        .animate-kenburns {
+          animation: kenburns ${SLIDE_DURATION * 1.5}ms ease-in-out infinite alternate;
+        }
+        @keyframes progress-bar {
+          from {
+            width: 0%;
+          }
+          to {
+            width: 100%;
+          }
+        }
+        .animate-progress-bar {
+          animation: progress-bar linear;
+        }
+      `}</style>
+    </>
   )
 }

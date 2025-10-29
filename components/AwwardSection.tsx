@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ArrowUpRight } from 'lucide-react';
 import localFont from 'next/font/local';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
@@ -14,6 +14,8 @@ const clashDisplay = localFont({
 interface Award {
   title: string;
   date: string;
+  issuer: string;
+  link: string;
 }
 
 // Data untuk daftar penghargaan
@@ -21,33 +23,50 @@ const awardsData: Award[] = [
   {
     title: 'Star Performer of the Year',
     date: 'MAY 2021',
+    issuer: 'OneShield',
+    link: '#',
   },
   {
     title: 'Best Beginner Hack',
     date: 'APR 2021',
+    issuer: 'Hackathon XYZ',
+    link: '#',
   },
   {
     title: 'Sketch Webpage Contest Winner',
     date: 'NOV 2020',
+    issuer: 'Design Community',
+    link: '#',
   },
   {
     title: 'Best Space App Winner',
     date: 'SEP 2021',
+    issuer: 'NASA Space Apps Challenge',
+    link: '#',
   },
 ];
 
 // Komponen untuk satu item penghargaan
-const AwardItem: React.FC<{ title: string; date: string; variants: any }> = ({ title, date, variants }) => {
+const AwardItem: React.FC<{ award: Award; variants: any }> = ({ award, variants }) => {
   return (
-    <motion.div
+    <motion.a
+      href={award.link}
+      target="_blank"
+      rel="noopener noreferrer"
       variants={variants}
-      className="flex justify-between items-center py-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0"
+      className="group flex justify-between items-center py-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/20 -mx-6 px-6"
     >
-      <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">{title}</h3>
-      <span className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase">
-        {date}
-      </span>
-    </motion.div>
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-purple-400 transition-colors">{award.title}</h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{award.issuer}</p>
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase hidden sm:block">
+          {award.date}
+        </span>
+        <ArrowUpRight className="h-5 w-5 text-gray-400 dark:text-gray-500 transition-transform transform-gpu group-hover:rotate-45 group-hover:text-gray-800 dark:group-hover:text-gray-200" />
+      </div>
+    </motion.a>
   );
 };
 
@@ -123,8 +142,7 @@ export default function AwwardSection() {
               {awardsData.map((award, index) => (
                 <AwardItem
                   key={index}
-                  title={award.title}
-                  date={award.date}
+                  award={award}
                   variants={itemVariants}
                 />
               ))}
