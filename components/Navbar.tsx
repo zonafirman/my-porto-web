@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { usePathname } from 'next/navigation';
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import PageLoader from './PageLoader';
 
 interface GooeyNavItem {
   label: string;
@@ -393,17 +394,18 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   activeIndex === index ? 'active' : ''
                 }`}
               >
-                <a
+                <Link
                   role="menuitem"
                   aria-current={activeIndex === index ? 'page' : undefined}
                   tabIndex={0}
                   href={item.href}
                   onClick={e => handleClick(e, index)}
                   onKeyDown={e => handleKeyDown(e, index)}
-                  className="outline-none py-[0.6em] px-[1em] inline-block text-sm"
+                  className="outline-none py-[0.6em] px-[1em] inline-block text-sm no-underline"
+                  style={{ color: 'inherit' }}
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -499,6 +501,7 @@ export default function Navbar() {
 
   return (
     <>
+      <PageLoader />
       <MobileHeaderElements />
       <header
         className={`fixed md:sticky top-4 right-4 md:top-0 md:right-auto z-50 flex w-auto md:w-full justify-end md:justify-center transition-all duration-500 ease-in-out ${isScrolled ? "md:top-2" : "md:top-0"
