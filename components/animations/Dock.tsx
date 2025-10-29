@@ -82,10 +82,15 @@ function DockItem({
     baseItemSize
   ]);
 
-  // Gunakan useMemo untuk memilih MotionValue yang sesuai berdasarkan kondisi mobile.
-  // Ini memastikan `useSpring` selalu menerima tipe yang konsisten.
-  const targetSize = useMemo(() => (isMobile ? useMotionValue(baseItemSize) : animatedSize), [isMobile, baseItemSize, animatedSize]);
-  const size = useSpring(targetSize, spring);
+  // Buat MotionValue baru untuk `size` agar tipenya konsisten.
+  const size = useSpring(baseItemSize, spring);
+
+  // Gunakan useEffect untuk mengatur nilai `size` berdasarkan kondisi `isMobile`.
+  useEffect(() => {
+    const newTarget = isMobile ? baseItemSize : animatedSize.get();
+    size.set(newTarget);
+  }, [isMobile, baseItemSize, animatedSize, size]);
+
   const opacity = useSpring(useTransform(size, [baseItemSize, magnification], [0.5, 1]), spring);
 
   // Untuk menampilkan label saat item membesar di mobile
