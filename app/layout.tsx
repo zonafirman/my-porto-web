@@ -6,7 +6,7 @@ import "./globals.css";
 import GradualBlur from "@/components/animations/GradualBlur";
 import { MobileNav } from "@/components/MobileNav";
 import { Analytics } from "@vercel/analytics/next";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const clashDisplay = localFont({
   src: '../public/fonts/ClashDisplay-Medium.woff2',
@@ -59,6 +59,7 @@ export default function RootLayout({
         {children}
         <MobileNav />
         <Analytics />
+        <SpeedInsights />
         <div className="hidden md:block">
           <GradualBlur preset="page-footer" />
         </div>
