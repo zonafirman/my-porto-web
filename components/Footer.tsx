@@ -1,8 +1,7 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 import { Linkedin, Github, Instagram, Dribbble, Mail } from 'lucide-react';
-import ScrollFloat from '@/components/animations/ScrollFloat';
 
 const socialLinks = [
   { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/zonafirman' },
@@ -41,6 +40,21 @@ const Footer = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   };
 
+  const title = "Let's create your next big idea.";
+  const titleChars = useMemo(() => title.split(''), [title]);
+
+  const textContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: (i: number = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.03, delayChildren: i * 0.05 },
+    }),
+  };
+
+  const charVariants: Variants = {
+    hidden: { opacity: 0, y: '120%', scaleY: 2.3, scaleX: 0.7, transformOrigin: '50% 0%' },
+    visible: { opacity: 1, y: '0%', scaleY: 1, scaleX: 1, transition: { type: 'spring', damping: 12, stiffness: 100 } },
+  };
   return (
     <footer ref={ref} className="relative pt-20 pb-10 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Container Utama untuk CTA */}
@@ -60,9 +74,20 @@ const Footer = () => {
         </motion.div>
 
         {/* Judul Utama */}
-        <ScrollFloat textClassName="text-4xl sm:text-5xl md:text-6xl font-light text-gray-900 dark:text-white tracking-tighter leading-tight max-w-3xl mx-auto">
-          Let's create your next big idea.
-        </ScrollFloat>
+        <motion.h2
+          className="my-5 text-4xl sm:text-5xl md:text-6xl font-light text-gray-900 dark:text-white tracking-tighter leading-tight max-w-3xl mx-auto overflow-hidden"
+          variants={textContainerVariants}
+          initial="hidden"
+          animate={controls}
+        >
+          {titleChars.map((char, index) => (
+            <motion.span
+              key={index}
+              className="inline-block"
+              variants={charVariants}
+            >{char === ' ' ? '\u00A0' : char}</motion.span>
+          ))}
+        </motion.h2>
 
         {/* Tombol Kontak */}
         <motion.div variants={itemVariants}>

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Sparkles, ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
-import ScrollFloat from '@/components/animations/ScrollFloat'
+import { motion, Variants } from 'framer-motion';
 
 const testimonialsData = [
   {
@@ -61,6 +61,25 @@ const Testimonials = () => {
 
   const currentTestimonial = testimonialsData[activeIndex];
 
+  const title = 'What others say about me'
+  const titleChars = title.split('')
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  }
+
+  const charVariants: Variants = {
+    hidden: { opacity: 0, y: '120%', scaleY: 2.3, scaleX: 0.7, transformOrigin: '50% 0%' },
+    visible: { opacity: 1, y: '0%', scaleY: 1, scaleX: 1, transition: { type: 'spring', damping: 12, stiffness: 100 } },
+  }
+
+
   return (
     <section className="font-sans py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -72,12 +91,21 @@ const Testimonials = () => {
               <Sparkles className="text-blue-500 h-5 w-5" />
               <p className="font-semibold tracking-wider bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">TESTIMONIALS</p>
             </div>
-             <ScrollFloat
-              containerClassName="mb-8"
-              textClassName="text-4xl md:text-5xl font-bold mt-4 leading-tight tracking-tighter text-black dark:text-white"
-            >
-              What others say about me
-            </ScrollFloat>
+             <motion.h2
+                className="mb-8 text-4xl md:text-5xl font-bold mt-4 leading-tight tracking-tighter text-black dark:text-white overflow-hidden"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+              >
+                {titleChars.map((char, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block"
+                    variants={charVariants}
+                  >{char === ' ' ? '\u00A0' : char}</motion.span>
+                ))}
+              </motion.h2>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-400">
               I&apos;ve worked with some amazing people over the years, here is what they have to say about me.
             </p>

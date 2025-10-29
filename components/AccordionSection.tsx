@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Code2, Palette, Megaphone, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import ScrollFloat from '@/components/animations/ScrollFloat';
+import { motion, Variants } from 'framer-motion';
 
 interface Item {
   id: number;
@@ -81,6 +81,24 @@ export default function ExpertiseAccordion() {
     resetTimer(); // Reset timer setiap kali pengguna berinteraksi
   }
 
+  const title = 'Areas of Expertise'
+  const titleChars = title.split('')
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  }
+
+  const charVariants: Variants = {
+    hidden: { opacity: 0, y: '120%', scaleY: 2.3, scaleX: 0.7, transformOrigin: '50% 0%' },
+    visible: { opacity: 1, y: '0%', scaleY: 1, scaleX: 1, transition: { type: 'spring', damping: 12, stiffness: 100 } },
+  }
+
   return (
     <>
       <section className="py-20">
@@ -116,12 +134,21 @@ export default function ExpertiseAccordion() {
               <p className="text-purple-600 dark:text-purple-400 font-medium uppercase tracking-widest mb-2">
                 Speciality
               </p>
-              <ScrollFloat
-                containerClassName="mb-8"
-                textClassName="text-4xl font-bold text-gray-900 dark:text-white"
+              <motion.h2
+                className="mb-8 text-4xl font-bold text-gray-900 dark:text-white overflow-hidden"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
               >
-                Areas of Expertise
-              </ScrollFloat>
+                {titleChars.map((char, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block"
+                    variants={charVariants}
+                  >{char === ' ' ? '\u00A0' : char}</motion.span>
+                ))}
+              </motion.h2>
 
               <div className="space-y-3">
                 {items.map((item, index) => (
