@@ -41,7 +41,8 @@ export const metadata: Metadata = {
   title: "Zona Firman M.",
   description: "I am a Web Developer",
   icons: {
-    icon: "/logo.png",
+    icon: "/logo-dark.png",
+    shortcut: "/logo-dark.png"
   },
 };
 
