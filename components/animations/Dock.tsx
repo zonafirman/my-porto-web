@@ -26,7 +26,7 @@ const useMediaQuery = (query: string) => {
 
 export type DockItemData = {
   icon: React.ReactNode;
-  label: React.ReactNode;
+  label?: React.ReactNode;
   onClick: () => void;
   className?: string;
 };
@@ -219,7 +219,7 @@ export default function Dock({
             isMobile={isMobile}
           >
             <DockIcon>{item.icon}</DockIcon>
-            <DockLabel>{item.label}</DockLabel>
+            {item.label && <DockLabel>{item.label}</DockLabel>}
           </DockItem>
         ))}
       </motion.div>

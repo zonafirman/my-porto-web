@@ -12,23 +12,19 @@ export function MobileNav() {
   const items: DockItemData[] = [
     {
       onClick: () => router.push('/'),
-      icon: <LayoutGrid size={24} />,
-      label: 'Home'
+      icon: <LayoutGrid size={20} />
     },
     {
       onClick: () => router.push('/about'),
-      icon: <UserRound size={24} />,
-      label: 'About'
+      icon: <UserRound size={20} />
     },
     {
-      onClick: () => console.log('/projects'),
-      icon: <FolderKanban size={24} />,
-      label: 'Projects'
+      onClick: () => router.push('/projects'),
+      icon: <FolderKanban size={20} />
     },
     {
-      onClick: () => console.log('/contacts'),
-      icon: <Mail size={24} />, // Mail icon is already good
-      label: 'Contact'
+      onClick: () => router.push('/contacts'),
+      icon: <Mail size={20} />
     }
   ];
 
