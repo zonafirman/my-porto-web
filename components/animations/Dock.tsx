@@ -82,9 +82,9 @@ function DockItem({
     baseItemSize
   ]);
 
-  // Gunakan useMemo untuk memilih antara nilai statis atau animasi berdasarkan isMobile.
-  const targetSize = useMemo(() => (isMobile ? baseItemSize : animatedSize), [isMobile, baseItemSize, animatedSize]);
-
+  // Gunakan useMemo untuk memilih MotionValue yang sesuai berdasarkan kondisi mobile.
+  // Ini memastikan `useSpring` selalu menerima tipe yang konsisten.
+  const targetSize = useMemo(() => (isMobile ? useMotionValue(baseItemSize) : animatedSize), [isMobile, baseItemSize, animatedSize]);
   const size = useSpring(targetSize, spring);
   const opacity = useSpring(useTransform(size, [baseItemSize, magnification], [0.5, 1]), spring);
 
