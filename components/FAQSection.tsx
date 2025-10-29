@@ -85,18 +85,18 @@ export default function FAQSection() {
 
   return (
     <section className="bg-gray-50 dark:bg-black py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Kontainer Grid Utama */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* === KOLOM KIRI: Judul === */}
-          <div className="sticky top-24"> {/* Membuat judul "sticky" */}
+          <div className="lg:sticky lg:top-24"> {/* Membuat judul "sticky" hanya di layar besar */}
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="h-5 w-5 text-blue-500" />
               <span className="text-xs font-semibold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent tracking-wider uppercase">
                 FAQS
               </span>
             </div>
-            <h2 className={`${clashDisplay.className} text-5xl md:text-6xl font-bold text-black dark:text-white leading-tight`}>
+            <h2 className={`${clashDisplay.className} text-4xl sm:text-5xl md:text-6xl font-bold text-black dark:text-white leading-tight`}>
               Have
               <br />
               Questions?

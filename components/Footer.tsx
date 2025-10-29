@@ -47,7 +47,7 @@ const Footer = () => {
         variants={containerVariants}
         initial="hidden"
         animate={controls}
-        className="max-w-6xl mx-auto bg-white dark:bg-[#161515] rounded-3xl p-10 sm:p-20 text-center shadow-[0px_8px_40px_rgba(0,0,0,0.05)] dark:border dark:border-white/10 dark:shadow-none"
+        className="max-w-6xl mx-auto bg-white dark:bg-[#161515] rounded-3xl p-8 sm:p-20 text-center shadow-[0px_8px_40px_rgba(0,0,0,0.05)] dark:border dark:border-white/10 dark:shadow-none"
       >
         {/* "Pill" Status */}
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
@@ -59,7 +59,7 @@ const Footer = () => {
         </motion.div>
 
         {/* Judul Utama */}
-        <ScrollFloat textClassName="text-4xl sm:text-5xl md:text-6xl font-light text-gray-900 dark:text-white tracking-tighter leading-tight max-w-2xl mx-auto">
+        <ScrollFloat textClassName="text-4xl sm:text-5xl md:text-6xl font-light text-gray-900 dark:text-white tracking-tighter leading-tight max-w-3xl mx-auto">
           Let's create your next big idea.
         </ScrollFloat>
 
@@ -75,6 +75,21 @@ const Footer = () => {
             </span>
           </a>
         </motion.div>
+
+        {/* Social Links & Copyright untuk Mobile */}
+        <motion.div variants={itemVariants} className="mt-12 sm:hidden">
+          <div className="h-px w-20 bg-gray-200 dark:bg-gray-700 mx-auto mb-8"></div>
+          <div className="flex items-center justify-center gap-6">
+            {socialLinks.map(link => (
+              <a key={link.name} href={link.href} aria-label={link.name} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors">
+                <link.icon size={24} />
+              </a>
+            ))}
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-xs mt-8">
+            &copy; 2025 Zona Firman. All rights reserved.
+          </p>
+        </motion.div>
       </motion.div>
 
       {/* Baris Footer Bawah */}
@@ -82,7 +97,7 @@ const Footer = () => {
         variants={containerVariants}
         initial="hidden"
         animate={controls}
-        className="max-w-6xl mx-auto mt-16 flex flex-col sm:flex-row justify-between items-center gap-6"
+        className="max-w-6xl mx-auto mt-16 hidden sm:flex flex-col sm:flex-row justify-between items-center gap-6"
       >
         <p className="text-gray-500 dark:text-gray-400 text-sm">
           &copy; 2025 Zona Firman. All rights reserved.

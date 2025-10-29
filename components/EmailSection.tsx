@@ -54,7 +54,7 @@ export default function ContactPage() {
                   type="text"
                   name="full-name"
                   id="full-name"
-                  className="block w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
+                  className="block w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161515] p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
                 />
               </div>
 
@@ -67,7 +67,7 @@ export default function ContactPage() {
                   type="email"
                   name="email"
                   id="email"
-                  className="block w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
+                  className="block w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161515] p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
                 />
               </div>
 
@@ -80,7 +80,7 @@ export default function ContactPage() {
                   name="message"
                   id="message"
                   rows={4}
-                  className="block w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
+                  className="block w-full rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161515] p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-purple-500 dark:focus:ring-purple-500 transition-colors"
                 />
               </div>
 
@@ -101,7 +101,7 @@ export default function ContactPage() {
 
           {/* === KOLOM KANAN: Kartu Profil === */}
           <div>
-            <div className="bg-white dark:bg-gray-900/50 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-[#161515] p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
               
               {/* Badge Available */}
               <div className="inline-flex items-center gap-2 py-1 px-3 bg-blue-100 dark:bg-purple-900/30 text-blue-800 dark:text-purple-300 rounded-full text-xs font-medium mb-4">

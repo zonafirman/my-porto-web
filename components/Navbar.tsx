@@ -420,6 +420,30 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   );
 };
 
+const MobileHeaderElements = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(savedTheme ? savedTheme === 'dark' : prefersDark);
+
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="fixed top-4 left-4 z-50 md:hidden">
+      <Link href="/" className="block p-2 rounded-full bg-white/65 dark:bg-black/65 backdrop-blur-xl border border-gray-200/80 dark:border-white/10">
+        <Image src={isDarkMode ? "/logo-dark.png" : "/logo-light.svg"} alt="Logo ZM" width={24} height={24} />
+      </Link>
+    </div>
+  );
+};
+
 export default function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -474,43 +498,51 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 hidden w-full justify-center transition-all duration-500 ease-in-out md:flex ${isScrolled ? "top-2" : "top-0"
-        }`}
-    >
-      <div
-        className={`relative flex h-14 w-full items-center justify-between rounded-full border border-transparent bg-transparent transition-all duration-500 ease-in-out md:px-6 ${
-          isScrolled
-            ? "max-w-4xl border-white/80 dark:border-white/10 bg-white/65 dark:bg-black/65 backdrop-blur-xl"
-            : "max-w-full border-transparent bg-transparent"
-        }`}
+    <>
+      <MobileHeaderElements />
+      <header
+        className={`fixed md:sticky top-4 right-4 md:top-0 md:right-auto z-50 flex w-auto md:w-full justify-end md:justify-center transition-all duration-500 ease-in-out ${isScrolled ? "md:top-2" : "md:top-0"
+          }`}
       >
-        {/* Logo di Kiri */}
         <div
-          className={`flex items-center transition-all duration-500 ease-in-out `}
+          className={`relative flex h-14 items-center justify-between rounded-full border border-transparent bg-transparent transition-all duration-500 ease-in-out md:w-full md:px-6 ${
+            isScrolled
+              ? "md:max-w-4xl md:border-white/80 dark:md:border-white/10 md:bg-white/65 dark:md:bg-black/65 md:backdrop-blur-xl"
+              : "md:max-w-full border-transparent bg-transparent"
+          }`}
         >
-          <Link
-            href="/"
-            className={`mr-6 flex items-center space-x-2`}
+          {/* Logo di Kiri (Desktop) */}
+          <div
+            className={`hidden md:flex items-center transition-all duration-500 ease-in-out `}
           >
-            <Image src={isDarkMode ? "/logo-dark.png" : "/logo-light.svg"} alt="Logo ZM" width={40} height={40} />
-          </Link>
-        </div>
+            <Link
+              href="/"
+              className={`mr-6 flex items-center space-x-2`}
+            >
+              <Image src={isDarkMode ? "/logo-dark.png" : "/logo-light.svg"} alt="Logo ZM" width={40} height={40} />
+            </Link>
+          </div>
 
-        {/* Menu Navigasi di Tengah */}
-        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
-          <GooeyNav items={navItems} isDarkMode={isDarkMode} initialActiveIndex={initialActiveIndex} />
-        </div>
+          {/* Menu Navigasi di Tengah */}
+          <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
+            <GooeyNav items={navItems} isDarkMode={isDarkMode} initialActiveIndex={initialActiveIndex} />
+          </div>
 
-        {/* Toggle Dark/Light Mode di Kanan */}
-        <div className="flex items-center justify-end">
-          <Button variant="ghost" size="icon" onClick={toggleTheme}>
-            <Sun className={`h-[1.2rem] w-[1.2rem] text-black dark:text-white transition-all duration-500 ease-in-out ${isDarkMode ? "rotate-90 scale-0" : "rotate-0 scale-100"}`} />
-            <Moon className={`absolute h-[1.2rem] w-[1.2rem] text-black dark:text-white transition-all duration-500 ease-in-out ${isDarkMode ? "rotate-0 scale-100" : "-rotate-90 scale-0"}`} />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
+          {/* Toggle Dark/Light Mode di Kanan */}
+          <div className="flex items-center justify-end">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleTheme}
+              className="rounded-full bg-white/65 dark:bg-black/65 backdrop-blur-xl border border-gray-200/80 dark:border-white/10 md:bg-transparent md:dark:bg-transparent md:border-none"
+            >
+              <Sun className={`h-[1.2rem] w-[1.2rem] text-black dark:text-white transition-all duration-500 ease-in-out ${isDarkMode ? "rotate-90 scale-0" : "rotate-0 scale-100"}`} />
+              <Moon className={`absolute h-[1.2rem] w-[1.2rem] text-black dark:text-white transition-all duration-500 ease-in-out ${isDarkMode ? "rotate-0 scale-100" : "-rotate-90 scale-0"}`} />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

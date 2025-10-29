@@ -5,7 +5,6 @@ import WorkSection from "@/components/WorkSection";
 import AccordionSection from "@/components/AccordionSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import Footer from "@/components/Footer";
-import { MobileNav } from "@/components/MobileNav"; 
 export default function Home() {
   return (
     <main>
@@ -16,7 +15,6 @@ export default function Home() {
       <AccordionSection />
       <TestimonialSection />
       <Footer />
-<MobileNav />
     </main>
   );
 }

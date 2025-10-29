@@ -75,7 +75,16 @@ function DockItem({
     return val - rect.x - baseItemSize / 2;
   });
 
-  const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+  // Selalu panggil useTransform untuk mematuhi Rules of Hooks.
+  const animatedSize = useTransform(mouseDistance, [-distance, 0, distance], [
+    baseItemSize,
+    magnification,
+    baseItemSize
+  ]);
+
+  // Gunakan useMemo untuk memilih antara nilai statis atau animasi berdasarkan isMobile.
+  const targetSize = useMemo(() => (isMobile ? baseItemSize : animatedSize), [isMobile, baseItemSize, animatedSize]);
+
   const size = useSpring(targetSize, spring);
   const opacity = useSpring(useTransform(size, [baseItemSize, magnification], [0.5, 1]), spring);
 
@@ -190,14 +199,17 @@ export default function Dock({
           isHovered.set(0);
           mouseX.set(Infinity);
         }}
-        onTouchStart={e => {
-          isHovered.set(1);
-          mouseX.set(e.touches[0].pageX);
+        // Nonaktifkan event touch untuk magnifikasi di mobile agar tidak mengganggu onClick
+        onTouchStart={e => { 
+          if (!isMobile) {
+            isHovered.set(1);
+            mouseX.set(e.touches[0].pageX);
+          }
         }}
-        onTouchMove={e => {
-          mouseX.set(e.touches[0].pageX);
+        onTouchMove={e => { 
+          if (!isMobile) mouseX.set(e.touches[0].pageX);
         }}
-        onTouchEnd={() => {
+        onTouchEnd={() => { 
           isHovered.set(0);
           mouseX.set(Infinity);
         }}
