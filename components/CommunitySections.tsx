@@ -75,7 +75,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) =
  */
 export default function CommunitySections() {
   return (
-    <main className="min-h-screen text-gray-900 dark:text-white p-8 md:p-16 bg-gray-50 dark:bg-black">
+    <main className="min-h-screen text-gray-900 dark:text-white p-8 md:p-16 bg-transparent dark:bg-transparent">
       <div className="max-w-7xl mx-auto">
         
         {/* Kontainer Grid Utama */}
