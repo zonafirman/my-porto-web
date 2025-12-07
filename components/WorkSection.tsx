@@ -47,13 +47,13 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
 
   const demo: ChromaItem[] = [
     {
-      image: 'https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=2070&auto=format&fit=crop',
-      title: 'Project Alpha',
-      subtitle: 'A web application for task management.',
+      image: '/project1.png',
+      title: 'Navstack',
+      subtitle: 'A powerful and intuitive navigation component for React applications.',
       handle: 'Next.js, TailwindCSS',
       borderColor: '#4F46E5',
       gradient: 'linear-gradient(145deg,#4F46E5,#000)',
-      url: 'https://github.com/'
+      url: 'https://navstacks.vercel.app'
     },
     {
       image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
