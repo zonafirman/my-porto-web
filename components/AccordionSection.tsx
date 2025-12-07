@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import { Code2, ChevronDown, ArrowUpRight } from 'lucide-react';
+import { Code2, Palette, Megaphone, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 
@@ -10,18 +10,34 @@ interface Item {
   icon: React.ReactElement
   content: string
   imageUrl: string
-  link: string
 }
 
 const items: Item[] = [
   {
     id: 1,
-    title: 'Navstack',
+    title: 'Development',
     icon: <Code2 className="w-5 h-5" />,
     content:
-      'A full-stack web application for managing and sharing navigation links. Built with modern technologies to provide a seamless user experience.',
-    imageUrl: '/project1.png',
-    link: 'https://navstacks.vercel.app',
+      'Building responsive websites. Providing the users an enriching experience that responds to any device and screen size.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=870&auto=format&fit=crop',
+  },
+  {
+    id: 2,
+    title: 'UI/UX Design',
+    icon: <Palette className="w-5 h-5" />,
+    content:
+      'Designing intuitive and beautiful user interfaces that provide seamless and enjoyable user experiences.',
+    imageUrl:
+      'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=870&auto=format&fit=crop',
+  },
+  {
+    id: 3,
+    title: 'Branding',
+    icon: <Megaphone className="w-5 h-5" />,
+    content:
+      'Creating strong visual identities that reflect the essence of your brand and connect with your audience.',
+    imageUrl: '/Profil.jpg',
   },
 ];
 
@@ -65,7 +81,7 @@ export default function ExpertiseAccordion() {
     resetTimer(); // Reset timer setiap kali pengguna berinteraksi
   }
 
-  const title = 'Featured Project'
+  const title = 'Areas of Expertise'
   const titleChars = title.split('')
 
   const containerVariants: Variants = {
@@ -116,7 +132,7 @@ export default function ExpertiseAccordion() {
             </div>
             <div>
               <p className="text-purple-600 dark:text-purple-400 font-medium uppercase tracking-widest mb-2">
-                Project
+                Speciality
               </p>
               <motion.h2
                 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white overflow-hidden"
@@ -177,15 +193,6 @@ export default function ExpertiseAccordion() {
                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                           {item.content}
                         </p>
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 mt-4 px-4 py-2 text-sm font-semibold text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors"
-                        >
-                          View Project
-                          <ArrowUpRight className="w-4 h-4" />
-                        </a>
                         {/* Bilah Progres */}
                         <div className="relative h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-4 overflow-hidden">
                           {active === index && (
