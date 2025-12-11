@@ -46,7 +46,6 @@ const awardsData: Award[] = [
   },
 ];
 
-// Komponen untuk satu item penghargaan
 const AwardItem: React.FC<{ award: Award; variants: any }> = ({ award, variants }) => {
   return (
     <motion.a

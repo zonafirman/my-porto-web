@@ -10,26 +10,26 @@ const testimonialsData = [
     name: 'Anya Sutedja',
     role: 'Project Manager @Digital Agency',
     image: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80',
-    text: "Bekerja dengan Zona adalah pengalaman yang fantastis. Perhatiannya terhadap detail dan komitmennya terhadap tenggat waktu sangat luar biasa. Dia memberikan produk berkualitas tinggi yang melebihi ekspektasi kami. Sangat direkomendasikan untuk proyek pengembangan web apa pun.",
+    text: "Working with Zona was a fantastic experience. His attention to detail and commitment to deadlines were outstanding. He delivered a high-quality product that exceeded our expectations. Highly recommended for any web development project.",
     linkedinUrl: '#',
   },
   {
     name: 'Budi Santoso',
     role: 'Lead Engineer @Innovate Inc.',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80',
-    text: "Zona adalah talenta luar biasa dalam pengembangan front-end dan back-end. Dia memiliki pemahaman mendalam tentang teknologi web modern dan kemampuan untuk memecahkan masalah kompleks secara efisien. Aset yang sangat berharga bagi tim mana pun.",
+    text: "Zona is an exceptional talent in both front-end and back-end development. He has a deep understanding of modern web technologies and the ability to solve complex problems efficiently. A valuable asset to any team.",
     linkedinUrl: '#',
   },
   {
     name: 'Citra Lestari',
     role: 'Startup Founder',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80',
-    text: "Saya bekerja dengan Zona untuk membangun MVP startup saya. Kemampuannya untuk menerjemahkan ide-ide saya menjadi produk yang fungsional dan menarik secara visual sungguh mengesankan. Dia proaktif, komunikatif, dan benar-benar berinvestasi dalam kesuksesan proyek.",
+    text: "I worked with Zona to build my startup's MVP. His ability to translate my ideas into a functional and visually appealing product was impressive. He is proactive, communicative, and truly invested in the project's success.",
     linkedinUrl: '#',
   },
 ];
 
-const SLIDE_DURATION = 8000; // 8 detik
+const SLIDE_DURATION = 8000; // 8 seconds
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -85,7 +85,7 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
           
-          {/* Kolom Kiri: Judul */}
+          {/* Left Column: Title */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2">
               <Sparkles className="text-blue-500 h-5 w-5" />
@@ -111,14 +111,14 @@ const Testimonials = () => {
             </p>
           </div>
 
-          {/* Kolom Kanan: Kartu Testimoni */}
+          {/* Right Column: Testimonial Card */}
           <div className="lg:col-span-3">
             <div className="bg-white dark:bg-[#161515] border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm p-8 relative overflow-hidden">
-              {/* Header Testimoni */}
+              {/* Testimonial Header */}
               <div className="flex items-start gap-4">
                 <div className="relative shrink-0">
                   <Image
-                    key={activeIndex} // Ganti key untuk mereset animasi
+                    key={activeIndex} // Change key to reset animation
                     src={currentTestimonial.image}
                     alt={currentTestimonial.name}
                     width={64}
@@ -136,7 +136,7 @@ const Testimonials = () => {
                       fill="transparent"
                     />
                     <circle
-                      key={activeIndex} // Ganti key untuk mereset animasi
+                      key={activeIndex} // Change key to reset animation
                       className="text-gray-900 dark:text-white animate-progress"
                       stroke="currentColor"
                       strokeWidth="4"
@@ -157,13 +157,13 @@ const Testimonials = () => {
                 </div>
               </div>
               
-              {/* Isi Testimoni */}
+              {/* Testimonial Content */}
               <div key={activeIndex} className="animate-fade-in">
                 <p className="mt-6 text-gray-700 dark:text-gray-300 leading-relaxed">{currentTestimonial.text}</p>
               </div>
             </div>
 
-            {/* Kontrol Navigasi */}
+            {/* Navigation Controls */}
             <div className="flex justify-between items-center mt-8">
               <a href={currentTestimonial.linkedinUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium group">
                 Check it out on LinkedIn
