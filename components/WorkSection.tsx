@@ -62,7 +62,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
       handle: 'Next.js, TailwindCSS',
       borderColor: '#10B981',
       gradient: 'linear-gradient(210deg,#10B981,#000)',
-      url: 'https://github.com/'
+      url: 'https://jhonz-template.vercel.app/'
     },
     {
       image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop',
@@ -257,7 +257,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
           >
             <span className="absolute inset-0 bg-black dark:bg-white top-full group-hover:top-0 transition-all duration-500 ease-in-out z-0"></span>
             <span className="relative z-10 block transition-transform duration-300 group-hover:-translate-y-full py-1">View all projects</span>
-            <span className="absolute inset-0 z-10 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">Let's Go</span>
+            <span className="absolute inset-0 z-10 flex items-center justify-center transition-transform duration-300 translate-y-full group-hover:translate-y-0">Lets Go</span>
           </button>
         )}
         {showAll && filteredData.length > 4 && (
