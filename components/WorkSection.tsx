@@ -56,10 +56,10 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
       url: 'https://navstacks.vercel.app'
     },
     {
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
-      title: 'Project Beta',
-      subtitle: 'A mobile app for social networking.',
-      handle: 'React Native, Firebase',
+      image: '/project2.png',
+      title: 'Jhonz template',
+      subtitle: 'Components Next.js dan Tailwind 100+ for your design,with modern and profesional 2025',
+      handle: 'Next.js, TailwindCSS',
       borderColor: '#10B981',
       gradient: 'linear-gradient(210deg,#10B981,#000)',
       url: 'https://github.com/'
