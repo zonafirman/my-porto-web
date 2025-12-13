@@ -8,7 +8,7 @@ import {
   Github,
   Dribbble,
   Mail,
-  Twitter
+  Instagram
 } from 'lucide-react';
 
 const clashDisplay = localFont({
@@ -17,8 +17,16 @@ const clashDisplay = localFont({
   weight: '500',
 });
 
+const socialLinks = [
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/in/zona-firman-maulana-3366253a0/' },
+  { name: 'Dribbble', icon: Dribbble, href: 'https://dribbble.com/zonafirman' },
+  { name: 'GitHub', icon: Github, href: 'https://github.com/zonafirman' },
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/yyon4a' },
+  { name: 'Email', icon: Mail, href: 'mailto:zonafirman2@gmail.com' }
+];
+
 // Komponen Halaman Utama
-export default function ContactPage() {
+export default function EmailSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState(''); // '', 'submitting', 'success', 'error'
 
@@ -175,21 +183,18 @@ export default function ContactPage() {
 
               {/* Ikon Sosial Media */}
               <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
-                <a href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                  <Linkedin className="h-5 w-5" />
-                </a>
-                <a href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                  <Github className="h-5 w-5" />
-                </a>
-                <a href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                  <Dribbble className="h-5 w-5" />
-                </a>
-                <a href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                  <Mail className="h-5 w-5" />
-                </a>
-                <a href="#" className="hover:text-black dark:hover:text-white transition-colors">
-                  <Twitter className="h-5 w-5" /> 
-                </a>
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    aria-label={link.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-black dark:hover:text-white transition-colors"
+                  >
+                    <link.icon className="h-5 w-5" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>

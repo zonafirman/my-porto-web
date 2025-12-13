@@ -4,10 +4,10 @@ import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 import { Linkedin, Github, Instagram, Dribbble, Mail } from 'lucide-react';
 
 const socialLinks = [
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/zonafirman' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/in/zona-firman-maulana-3366253a0/' },
   { name: 'Dribbble', icon: Dribbble, href: 'https://dribbble.com/zonafirman' },
   { name: 'GitHub', icon: Github, href: 'https://github.com/zonafirman' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/zonafirman' },
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/yyon4a' },
   { name: 'Email', icon: Mail, href: 'mailto:zonafirman2@gmail.com' }
 ];
 

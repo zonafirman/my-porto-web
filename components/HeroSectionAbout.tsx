@@ -68,7 +68,7 @@ export default function HeroSectionAbout() {
             </p>
             
             <motion.a
-              href="/resume.pdf" 
+              href="/contacts" 
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
@@ -78,8 +78,8 @@ export default function HeroSectionAbout() {
             >
               {/* Latar belakang yang mengisi */}
               <span className="absolute inset-0 bg-black dark:bg-white top-full group-hover:top-0 transition-all duration-500 ease-in-out z-0"></span>
-              <span className="relative z-10 flex items-center gap-2.5 transition-transform duration-300 group-hover:-translate-y-[150%] py-1">My Resume <ResumeArrowIcon /></span>
-              <span className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 transition-transform duration-300 translate-y-[150%] group-hover:translate-y-0">Download CV <ResumeArrowIcon /></span>
+              <span className="relative z-10 flex items-center gap-2.5 transition-transform duration-300 group-hover:-translate-y-[150%] py-1">My Contacts <ResumeArrowIcon /></span>
+              <span className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 transition-transform duration-300 translate-y-[150%] group-hover:translate-y-0">Connect Now <ResumeArrowIcon /></span>
             </motion.a>
           </div>
 

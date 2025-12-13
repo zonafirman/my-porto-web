@@ -5,7 +5,7 @@ import LogoLoop, { type LogoItem } from "@/components/LogoLoop";
 import ExperienceSection from "@/components/ExperienceSection";
 import WorkStepSection from "@/components/WorkStepSection";
 import AwwardSection from "@/components/AwwardSection";
-import CommunitySections from "@/components/CommunitySections";
+// import CommunitySections from "@/components/CommunitySections";
 
 const logos: LogoItem[] = [
   { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', alt: 'React' },
@@ -28,7 +28,7 @@ export default function Home() {
       <ExperienceSection />
       <WorkStepSection />
       <AwwardSection />
-      <CommunitySections />
+      {/* <CommunitySections /> */}
       <Footer />
       <MobileNav />
     </main>

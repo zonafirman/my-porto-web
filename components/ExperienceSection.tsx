@@ -25,31 +25,10 @@ const jobs: Job[] = [
       </div>
     ),
     title: "Software Engineer",
-    company: "@OneShield Software",
+    company: "Islamic School Vocations",
     date: "Aug 2022 — Present",
   },
-  {
-    logo: (
-      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-black border border-gray-700 font-bold text-white">
-        DC
-      </div>
-    ),
-    title: "Founder",
-    company: "@Design and Code",
-    date: "Jan 2021 — Present",
-  },
-  {
-    logo: (
-      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-black border border-gray-700 text-white">
-        <svg fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-          <path d="M12 0L3 5v14l9 5 9-5V5L12 0zM7 17.25V8.5l5 2.75v8.75l-5-2.75zM12 10.5L17 7.75v8.75l-5 2.75V10.5z"></path>
-        </svg>
-      </div>
-    ),
-    title: "Design Engineer",
-    company: "@BlackboxAI",
-    date: "Feb 2025 — Mar 2025",
-  },
+ 
   {
     logo: (
       <div className="w-12 h-12 rounded-full flex items-center justify-center bg-blue-600 font-bold text-white text-xl">
