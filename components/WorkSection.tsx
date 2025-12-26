@@ -71,7 +71,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
       handle: 'Next.js, TailwindCSS',
       borderColor: '#F59E0B',
       gradient: 'linear-gradient(165deg,#F59E0B,#000)',
-      url: 'https://florain-aja.vercel.app/'
+      url: 'https://florainaja.vercel.app/'
     },
     {
       image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop',
