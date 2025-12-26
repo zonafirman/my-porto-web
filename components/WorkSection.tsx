@@ -65,13 +65,13 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
       url: 'https://jhonz-template.vercel.app/'
     },
     {
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop',
-      title: 'Project Gamma',
+      image: '/project3.svg',
+      title: 'Florain Aja',
       subtitle: 'E-commerce platform with payment integration.',
-      handle: 'Shopify, Liquid',
+      handle: 'Next.js, TailwindCSS',
       borderColor: '#F59E0B',
       gradient: 'linear-gradient(165deg,#F59E0B,#000)',
-      url: 'https://github.com/'
+      url: 'https://florain-aja.vercel.app/'
     },
     {
       image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop',
