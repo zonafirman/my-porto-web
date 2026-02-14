@@ -23,25 +23,19 @@ const awardsData: Award[] = [
   {
     title: 'Star Performer of the Year',
     date: 'MAY 2021',
-    issuer: 'OneShield',
+    issuer: 'Javascript Excellence Awards',
     link: '#',
   },
   {
     title: 'Best Beginner Hack',
-    date: 'APR 2021',
+    date: 'APR 2023',
     issuer: 'Hackathon XYZ',
     link: '#',
   },
   {
     title: 'Sketch Webpage Contest Winner',
-    date: 'NOV 2020',
-    issuer: 'Design Community',
-    link: '#',
-  },
-  {
-    title: 'Best Space App Winner',
-    date: 'SEP 2021',
-    issuer: 'NASA Space Apps Challenge',
+    date: 'NOV 2024',
+    issuer: 'Design Community on reddit',
     link: '#',
   },
 ];

@@ -73,33 +73,6 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
       gradient: 'linear-gradient(165deg,#F59E0B,#000)',
       url: 'https://florainaja.vercel.app/'
     },
-    {
-      image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop',
-      title: 'Project Delta',
-      subtitle: 'Data visualization dashboard.',
-      handle: 'D3.js, React',
-      borderColor: '#EF4444',
-      gradient: 'linear-gradient(195deg,#EF4444,#000)',
-      url: 'https://github.com/'
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2106&auto=format&fit=crop',
-      title: 'Project Epsilon',
-      subtitle: 'A blog built with a headless CMS.',
-      handle: 'Gatsby, Contentful',
-      borderColor: '#8B5CF6',
-      gradient: 'linear-gradient(225deg,#8B5CF6,#000)',
-      url: 'https://github.com/'
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1593720213428-28a5b9e94613?q=80&w=2070&auto=format&fit=crop',
-      title: 'Project Zeta',
-      subtitle: 'CI/CD pipeline automation.',
-      handle: 'Jenkins, Docker',
-      borderColor: '#06B6D4',
-      gradient: 'linear-gradient(135deg,#06B6D4,#000)',
-      url: 'https://github.com/'
-    }
   ];
 
   const data = items?.length ? items : demo;
