@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Sparkles, ArrowUpRight } from 'lucide-react';
 import localFont from 'next/font/local';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView, Variants, easeOut } from 'framer-motion';
 
 const clashDisplay = localFont({
   src: '../public/fonts/ClashDisplay-Medium.woff2',
@@ -40,7 +40,7 @@ const awardsData: Award[] = [
   },
 ];
 
-const AwardItem: React.FC<{ award: Award; variants: any }> = ({ award, variants }) => {
+const AwardItem: React.FC<{ award: Award; variants: Variants }> = ({ award, variants }) => {
   return (
     <motion.a
       href={award.link}
@@ -93,7 +93,7 @@ export default function AwwardSection() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: 'easeOut',
+        ease: easeOut,
       },
     },
   };
